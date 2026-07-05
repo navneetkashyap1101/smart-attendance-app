@@ -1,0 +1,28 @@
+{% extends 'core/base.html' %}
+{% block title %}Teacher Dashboard{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Welcome, {{ teacher.user.get_full_name|default:teacher.user.username }}</h1>
+    <p>Subject: <strong>{{ teacher.subject }}</strong></p>
+    <a href="{% url 'create_session' %}" class="btn">+ Start New Attendance Session</a>
+</div>
+<div class="card">
+    <h2>Recent Sessions</h2>
+    <table>
+        <tr><th>Class</th><th>Subject</th><th>Date</th><th>Action</th></tr>
+        {% for s in sessions %}
+        <tr>
+            <td>{{ s.class_name }}</td>
+            <td>{{ s.subject }}</td>
+            <td>{{ s.date }}</td>
+            <td>
+                <a href="{% url 'mark_attendance' s.id %}">Mark/Edit</a> |
+                <a href="{% url 'session_report' s.id %}">Report</a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr><td colspan="4">No sessions yet. Start one above.</td></tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

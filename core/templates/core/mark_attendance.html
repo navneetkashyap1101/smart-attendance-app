@@ -1,0 +1,31 @@
+{% extends 'core/base.html' %}
+{% block title %}Mark Attendance{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Mark Attendance</h1>
+    <p>{{ session.class_name }} — {{ session.subject }} ({{ session.date }})</p>
+    <form method="post">
+        {% csrf_token %}
+        <table>
+            <tr><th>Roll No</th><th>Name</th><th>Status</th></tr>
+            {% for student, current_status in student_list %}
+            <tr>
+                <td>{{ student.roll_no }}</td>
+                <td>{{ student.user.get_full_name|default:student.user.username }}</td>
+                <td>
+                    <div class="radio-row">
+                        <label><input type="radio" name="status_{{ student.id }}" value="Present" {% if current_status == 'Present' %}checked{% endif %}> Present</label>
+                        <label><input type="radio" name="status_{{ student.id }}" value="Absent" {% if current_status == 'Absent' %}checked{% endif %}> Absent</label>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="3">No students found in class "{{ session.class_name }}". Students must sign up with this exact class name.</td></tr>
+            {% endfor %}
+        </table>
+        {% if student_list %}
+        <button type="submit">Save Attendance</button>
+        {% endif %}
+    </form>
+</div>
+{% endblock %}

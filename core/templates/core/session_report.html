@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% block title %}Session Report{% endblock %}
+{% block content %}
+<div class="card">
+    <h1>Session Report</h1>
+    <p>{{ session.class_name }} — {{ session.subject }} ({{ session.date }})</p>
+    <div class="stat-grid">
+        <div class="stat-box"><div class="num">{{ total }}</div><div class="label">Total</div></div>
+        <div class="stat-box"><div class="num">{{ present }}</div><div class="label">Present</div></div>
+        <div class="stat-box"><div class="num">{{ absent }}</div><div class="label">Absent</div></div>
+        <div class="stat-box"><div class="num">{{ percentage }}%</div><div class="label">Attendance %</div></div>
+    </div>
+</div>
+<div class="card">
+    <table>
+        <tr><th>Roll No</th><th>Name</th><th>Status</th></tr>
+        {% for r in records %}
+        <tr>
+            <td>{{ r.student.roll_no }}</td>
+            <td>{{ r.student.user.get_full_name|default:r.student.user.username }}</td>
+            <td><span class="badge {{ r.status|lower }}">{{ r.status }}</span></td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'teacher_dashboard' %}" class="btn">Back to Dashboard</a>
+</div>
+{% endblock %}

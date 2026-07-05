@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+{% block title %}Sign Up{% endblock %}
+{% block content %}
+<div class="card" style="max-width:400px;margin:2rem auto;text-align:center;">
+    <h1>Sign Up As</h1>
+    <a href="{% url 'student_signup' %}" class="btn" style="width:100%;margin-bottom:1rem;">🎓 Student</a>
+    <a href="{% url 'teacher_signup' %}" class="btn" style="width:100%;background:#1a1a2e;color:#fff;">👨‍🏫 Teacher</a>
+</div>
+{% endblock %}

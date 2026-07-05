@@ -1,0 +1,15 @@
+{% extends 'core/base.html' %}
+{% block title %}Create Session{% endblock %}
+{% block content %}
+<div class="card" style="max-width:450px;margin:2rem auto;">
+    <h1>Start New Attendance Session</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label>Class Name</label>
+        <input type="text" name="class_name" placeholder="e.g. BCA-3rd-A" required>
+        <label>Subject</label>
+        <input type="text" name="subject" placeholder="e.g. Python Programming" required>
+        <button type="submit">Create & Mark Attendance</button>
+    </form>
+</div>
+{% endblock %}
